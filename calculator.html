@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="calculator">
+    <div class="screen" id="screen">0</div>
+    <div class="buttons">
+      <button type="button" class="btn operator" onclick="press('7')">7</button>
+      <button type="button" class="btn operator" onclick="press('8')">8</button>
+      <button type="button" class="btn operator" onclick="press('9')">9</button>
+      <button type="button" class="btn action" onclick="press('/')">÷</button>
+
+      <button type="button" class="btn operator" onclick="press('4')">4</button>
+      <button type="button" class="btn operator" onclick="press('5')">5</button>
+      <button type="button" class="btn operator" onclick="press('6')">6</button>
+      <button type="button" class="btn action" onclick="press('*')">×</button>
+
+      <button type="button" class="btn operator" onclick="press('1')">1</button>
+      <button type="button" class="btn operator" onclick="press('2')">2</button>
+      <button type="button" class="btn operator" onclick="press('3')">3</button>
+      <button type="button" class="btn action" onclick="press('-')">−</button>
+
+      <button type="button" class="btn operator" onclick="press('0')">0</button>
+      <button type="button" class="btn operator" onclick="press('.')">.</button>
+      <button type="button" class="btn equals" onclick="calculate()">=</button>
+      <button type="button" class="btn action" onclick="press('+')">+</button>
+
+      <button type="button" class="btn clear" onclick="clearScreen()">C</button>
+    </div>
+  </div>
+
+  <script>
+    const screen = document.getElementById('screen');
+
+    function press(value) {
+      if (screen.textContent === '0' && value !== '.') {
+        screen.textContent = value;
+        return;
+      }
+
+      if (screen.textContent === 'Error') {
+        screen.textContent = value;
+        return;
+      }
+
+      screen.textContent += value;
+    }
+
+    function clearScreen() {
+      screen.textContent = '0';
+    }
+
+    function calculate() {
+      try {
+        const expression = screen.textContent.replace('×', '*').replace('÷', '/');
+        const result = Function('return ' + expression)();
+        screen.textContent = result;
+      } catch (error) {
+        screen.textContent = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>
